@@ -77,6 +77,7 @@ def upload_data(id=None, name=None):
         result_dict[j] = [sales_list[j].data_sale]
         result_dict[j].append(sales_list[j].price)
 
+
     sales_list_2 = session.query(Sale).join(stoks, Sale.id_stock == stoks.c.id).subquery()
     stock_list = session.query(Stock).join(sales_list_2, Stock.id == sales_list_2.c.id_stock).all()
     books2 = session.query(Book).join(Publisher.book).filter(x1 == x2).all()
@@ -87,27 +88,12 @@ def upload_data(id=None, name=None):
         result_dict[i].append(book_dict[stock_list[i].id_book])
 
 
-    # stock_list2 = session.query(Stock).join(stock_list, Stock.id == stock_list.c.id_stock).subquery()
-    # shop_list2 = session.query(Shop).join(stock_list2, Shop.id == stock_list2.c.id_shop).all()
-    # shop = session.query(Shop).all()
-    # shop_dict = {}
-    # for i in range(len(shop)):
-    #     shop_dict[shop[i].id] = shop[i].name
-    # for i in range(len(shop_list2)):
-    #     result_dict[i].append(shop_dict[shop_list2[i].id_shop])
-    # print(shop_dict)
-
-    # shop_list = session.query(Shop).join(stoks, Shop.id == stoks.c.id_shop).all()
-    # for z in range(len(shop_list)):
-    #     result_dict[z].append(shop_list[z].name)
-
     for res in result_dict.items():
-        pprint.pprint(res)
-    #     # print(f'{res[1][0]} | {res[1][1]} | {res[1][3]} | {res[1][2]}')
-    #     pass
+        print(f'{res[1][2]} | {res[1][1]} | {res[1][0]}')
 
 
 if __name__ == '__main__':
     create_tables(engine)
     add_data()
-    upload_data(id=1) #name='Пушкин'
+    upload_data(id=1)
+    # upload_data(name='Пушкин')
