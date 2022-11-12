@@ -41,9 +41,9 @@ def add_data():
 
     stock1 = Stock(book=book1, shop=shop3, count=100)
     stock2 = Stock(book=book2, shop=shop3, count=100)
-    stock3 = Stock(book=book3, shop=shop3, count=100)
-    stock4 = Stock(book=book1, shop=shop1, count=100)
-    stock5 = Stock(book=book3, shop=shop2, count=100)
+    stock3 = Stock(book=book3, shop=shop1, count=100)
+    stock4 = Stock(book=book1, shop=shop2, count=100)
+    stock5 = Stock(book=book3, shop=shop3, count=100)
     stock6 = Stock(book=book2, shop=shop1, count=100)
 
 
@@ -87,9 +87,16 @@ def upload_data(id=None, name=None):
     for i in range(len(stock_list)):
         result_dict[i].append(book_dict[stock_list[i].id_book])
 
+    shop = session.query(Shop).all()
+    shop_dict = {}
+    for i in range(len(shop)):
+        shop_dict[shop[i].id] = shop[i].name
+    for i in range(len(stock_list)):
+        result_dict[i].append(shop_dict[stock_list[i].id_shop])
+
 
     for res in result_dict.items():
-        print(f'{res[1][2]} | {res[1][1]} | {res[1][0]}')
+        print(f'{res[1][2]} | {res[1][3]} | {res[1][1]} | {res[1][0]}')
 
 
 if __name__ == '__main__':
